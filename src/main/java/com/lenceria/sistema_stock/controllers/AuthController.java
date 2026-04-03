@@ -30,6 +30,12 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
+    //Para el bot
+    @GetMapping("/ping")
+    public String ping() {
+        return "OK";
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         Optional<User> userOptional = userRepository.findByUsername(loginDTO.getUsername());
