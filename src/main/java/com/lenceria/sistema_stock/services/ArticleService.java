@@ -115,17 +115,18 @@ public class ArticleService {
         varianteExistente.setActive(false);
     }
 
-    @Transactional
+@Transactional
     public void actualizarVariante(Long articleId, Long varianteId, Variant varianteActualizada) {
-        
+
         Variant varianteExistente = variantRepository.findById(varianteId).orElseThrow(() -> new RuntimeException("Variante no encontrada"));
-        
+
         if (articleId != varianteExistente.getArticle().getId()){
             throw new IllegalArgumentException("Variante o articulo incorrectos. No relacionados.");
         }
         varianteExistente.setSize(varianteActualizada.getSize());
         varianteExistente.setColor(varianteActualizada.getColor());
         varianteExistente.setPrice(varianteActualizada.getPrice());
+        varianteExistente.setBarCode(varianteActualizada.getBarCode());
 
-        }
+    }
 }
