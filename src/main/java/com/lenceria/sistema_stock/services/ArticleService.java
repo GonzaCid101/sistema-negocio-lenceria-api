@@ -84,7 +84,11 @@ public class ArticleService {
     }
 
     public Variant obtenerVariante(String code) {
-        return variantRepository.findByBarCode(code);
+        Variant variant = variantRepository.findByBarCode(code);
+        if (variant != null && !variant.getActive()) {
+            return null; // No devolver variantes borradas
+        }
+        return variant;
     }
 
     @Transactional
@@ -96,13 +100,19 @@ public class ArticleService {
         return variantRepository.save(variante);
     }
 
+    @Transactional
     public void eliminarVariante( Long articleId, Long varianteId) {
         Variant varianteExistente = variantRepository.findById(varianteId).orElseThrow(() -> new RuntimeException("¡Error! La variante ID " + varianteId + " no existe."));
 
         if (articleId != varianteExistente.getArticle().getId()){
             throw new IllegalArgumentException("Variante o articulo incorrectos. No relacionados.");
         }
-        variantRepository.deleteById(varianteId);
+        
+        if(!varianteExistente.getActive()){
+            throw new RuntimeException("La variante ya fue borrada.");
+        }
+        
+        varianteExistente.setActive(false);
     }
 
     @Transactional

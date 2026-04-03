@@ -41,6 +41,9 @@ public class Variant {
 
     private Integer stock = 0;
 
+    @Column(nullable = false)
+    private Boolean active = true;
+
     // --CONSTRUCTORES---
 
     public Variant(){
@@ -79,6 +82,9 @@ public class Variant {
 
     public String getBarCode() { return barCode; }
     public void setBarCode(String barCode) { this.barCode = barCode; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
 
 
