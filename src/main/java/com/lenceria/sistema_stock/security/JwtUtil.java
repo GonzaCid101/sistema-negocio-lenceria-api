@@ -3,21 +3,29 @@ package com.lenceria.sistema_stock.security;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 
 @Component
 public class JwtUtil {
     
-    private static final String SECRET_KEY = "LenceriaFlavioSecretKeySuperSeguraParaElSistemaDeStock2026";
-    private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    @Value("${jwt.secret}")
+    private String secretKey;
+    private Key key;
     
     // El token dura 10 horas
     private static final long EXPIRE_DURATION = 10 * 60 * 60 * 1000;
+
+    @PostConstruct
+    public void init() {
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
+    }
 
     public String generarToken(String username, String rol) {
         return Jwts.builder()
