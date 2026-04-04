@@ -308,6 +308,18 @@ java -jar target/sistema-stock-0.0.1-SNAPSHOT.jar
 - [ ] Caché con Redis
 - [ ] Métricas personalizadas con Actuator
 
+## ⚡ Comandos Importantes
+### Antes de cada commit/deploy
+Para compilar y empaquetar la aplicación (requerido por Render para que funcione más rápido):
+```bash
+mvn clean package -DskipTests
+Qué hace:
+- mvn clean - Limpia archivos compilados anteriores
+- package - Compila y genera el JAR ejecutable
+- -DskipTests - Salta los tests (para acelerar el build en Render)
+Esto genera el archivo JAR en target/ que Render usa para desplegar la aplicación.
+Recordatorio: Ejecutar este comando siempre antes de hacer git commit y push.
+
 ## 👨‍💻 Autor
 
 **Desarrollador**: Gonzalo Cid

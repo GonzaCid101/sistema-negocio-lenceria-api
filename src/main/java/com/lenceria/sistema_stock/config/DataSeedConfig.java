@@ -1,5 +1,6 @@
 package com.lenceria.sistema_stock.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,25 +12,27 @@ import com.lenceria.sistema_stock.repositories.UserRepository;
 @Configuration
 public class DataSeedConfig {
 
+    @Value("${ADMIN_PASSWORD}")
+    private String adminPassword;
+
     @Bean
     public CommandLineRunner cargarUsuarioInicial(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            // 1. Flavio (Dueño - Todo el poder)
-            if (userRepository.findByUsername("flavio").isEmpty()) {
-                userRepository.save(new User("flavio", passwordEncoder.encode("123456"), "ADMIN"));
+            // Usuario único ADMIN (consolidado para Flavio y Marisa)
+            // La contraseña se obtiene de variable de entorno ADMIN_PASSWORD
+            if (userRepository.findByUsername("admin").isEmpty()) {
+                if (adminPassword == null || adminPassword.isEmpty()) {
+                    throw new IllegalStateException("ERROR: La variable de entorno ADMIN_PASSWORD no está configurada. " +
+                            "Por favor configúrala en Render antes de iniciar la aplicación.");
+                }
+                userRepository.save(new User("admin", passwordEncoder.encode(adminPassword), "ADMIN"));
+                System.out.println("✓ Usuario 'admin' creado exitosamente.");
+            } else {
+                System.out.println("✓ Usuario 'admin' ya existe en el sistema.");
             }
-            
-            // 2. Marisa (Encargada - Todo el poder)
-            if (userRepository.findByUsername("marisa").isEmpty()) {
-                userRepository.save(new User("marisa", passwordEncoder.encode("123456"), "ADMIN"));
-            }
-            
-            // 3. Cajero (Empleado nuevo - Poder limitado)
-            if (userRepository.findByUsername("cajero").isEmpty()) {
-                userRepository.save(new User("cajero", passwordEncoder.encode("123"), "VENDEDOR"));
-            }
-            
-            System.out.println("Usuarios base cargados en el sistema.");
+
+            // Nota: Los usuarios anteriores (flavio, marisa, cajero) han sido eliminados
+            // para consolidar en un único usuario administrador seguro.
         };
     }
 }

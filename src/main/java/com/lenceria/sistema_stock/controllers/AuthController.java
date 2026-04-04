@@ -15,7 +15,6 @@ import com.lenceria.sistema_stock.security.JwtUtil;
 import java.util.Map;
 import java.util.HashMap;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

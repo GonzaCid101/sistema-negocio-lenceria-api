@@ -54,10 +54,15 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        // Restringido a dominios específicos (seguridad mejorada)
+        configuration.setAllowedOrigins(Arrays.asList(
+                "https://zingy-flan-0d4f04.netlify.app",  // Frontend en Netlify
+                "https://sistema-negocio-lenceria-api.onrender.com"  // API en Render
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*")); // Permite cualquier Header
-        
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+        configuration.setAllowCredentials(true); // Permite envío de credenciales/cookies
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

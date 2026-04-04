@@ -19,8 +19,8 @@ public class JwtUtil {
     private String secretKey;
     private Key key;
     
-    // El token dura 10 horas
-    private static final long EXPIRE_DURATION = 10 * 60 * 60 * 1000;
+    // El token dura 4 horas (mejor seguridad)
+    private static final long EXPIRE_DURATION = 4 * 60 * 60 * 1000;
 
     @PostConstruct
     public void init() {
@@ -54,5 +54,10 @@ public class JwtUtil {
     public String extraerUsuario(String token) {
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
         return claims.getSubject();
+    }
+
+    public String extraerRol(String token) {
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        return claims.get("rol", String.class);
     }
 }
