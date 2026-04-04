@@ -17,7 +17,7 @@
 #### 3. CORS Restringido
 - **Antes:** Permitía cualquier origen (`*`)
 - **Después:** Solo permite:
-  - `https://zingy-flan-0d4f04.netlify.app` (frontend Netlify)
+  - `https://lenceria-stock.netlify.app/` (frontend Netlify)
   - `https://sistema-negocio-lenceria-api.onrender.com` (API en Render)
 - **Credenciales:** Habilitado para soportar cookies/tokens
 
