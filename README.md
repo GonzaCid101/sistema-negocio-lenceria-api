@@ -311,6 +311,7 @@ java -jar target/sistema-stock-0.0.1-SNAPSHOT.jar
 ## ⚡ Comandos Importantes
 ### Antes de cada commit/deploy
 Para compilar y empaquetar la aplicación (requerido por Render para que funcione más rápido):
+
 ```bash
 mvn clean package -DskipTests
 Qué hace:
