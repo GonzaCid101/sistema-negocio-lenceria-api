@@ -11,7 +11,8 @@ import com.lenceria.sistema_stock.entities.Variant;
 
 @Repository
 public interface VariantRepository extends JpaRepository<Variant,Long>{
-    Variant findByBarCode(String barCode);
-    List<Variant> findByArticleIdAndActive(Long articleId, Boolean active);
-    Variant findByIdAndActive(Long id, Boolean active);
+	Variant findByBarCode(String barCode);
+	List<Variant> findAllByBarCode(String barCode);
+	List<Variant> findByArticleIdAndActive(Long articleId, Boolean active);
+	Variant findByIdAndActive(Long id, Boolean active);
 }

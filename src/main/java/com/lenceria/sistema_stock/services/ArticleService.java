@@ -83,13 +83,22 @@ public class ArticleService {
 
     }
 
-    public Variant obtenerVariante(String code) {
-        Variant variant = variantRepository.findByBarCode(code);
-        if (variant != null && !variant.getActive()) {
-            return null; // No devolver variantes borradas
-        }
-        return variant;
-    }
+	public List<Variant> obtenerVariantesPorCodigo(String code) {
+		List<Variant> variantes = variantRepository.findAllByBarCode(code);
+		// Filtrar solo variantes activas
+		return variantes.stream()
+				.filter(Variant::getActive)
+				.collect(java.util.stream.Collectors.toList());
+	}
+
+	@Deprecated
+	public Variant obtenerVariante(String code) {
+		Variant variant = variantRepository.findByBarCode(code);
+		if (variant != null && !variant.getActive()) {
+			return null; // No devolver variantes borradas
+		}
+		return variant;
+	}
 
     @Transactional
     public Variant agregarVariante(Long id, Variant variante){

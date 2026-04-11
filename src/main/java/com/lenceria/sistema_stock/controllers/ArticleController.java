@@ -38,11 +38,11 @@ public class ArticleController {
         return articleService.obtenerTodos();
     }
 
-    // Variante con codigo de barras
-    @GetMapping("/codigo/{code}")
-    public Variant obtenerVariante(@PathVariable String code) {
-        return articleService.obtenerVariante(code);
-    }
+	// Variante(s) con codigo de barras - puede devolver multiples variantes si comparten el mismo codigo (distintos colores)
+	@GetMapping("/codigo/{code}")
+	public List<Variant> obtenerVariantesPorCodigo(@PathVariable String code) {
+		return articleService.obtenerVariantesPorCodigo(code);
+	}
     @PostMapping//Guarda en la base de datos. Para ingresar
     public ResponseEntity<String> createArticle(@Valid @RequestBody ArticleDTO articleDTO){ //Transforma el JSON que se ingresa en un objeto article
         articleService.createArticle(articleDTO);
