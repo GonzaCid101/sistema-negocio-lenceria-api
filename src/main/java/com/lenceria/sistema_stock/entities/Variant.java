@@ -36,8 +36,8 @@ public class Variant {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Column(unique = true)
-    private String barCode;
+	@Column
+	private String barCode;
 
     private Integer stock = 0;
 
