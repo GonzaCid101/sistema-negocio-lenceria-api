@@ -16,6 +16,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.lenceria.sistema_stock.security.JwtFilter;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.filter.CorsFilter;
+
 import java.util.Arrays;
 
 @Configuration
@@ -31,6 +35,25 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(Arrays.asList(
+            "https://lenceria-stock.netlify.app",
+            "https://sistema-negocio-lenceria-api.onrender.com",
+            "https://sistema-stock-frontend.46397496.workers.dev"
+        ));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 
     @Bean
