@@ -3,7 +3,7 @@ package com.lenceria.sistema_stock.config;
 import com.lenceria.sistema_stock.entities.*;
 import com.lenceria.sistema_stock.repositories.*;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
