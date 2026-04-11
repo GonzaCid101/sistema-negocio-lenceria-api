@@ -56,8 +56,9 @@ public class SecurityConfig {
 
         // Restringido a dominios específicos (seguridad mejorada)
         configuration.setAllowedOrigins(Arrays.asList(
-                "https://lenceria-stock.netlify.app",  // Frontend en Netlify
-                "https://sistema-negocio-lenceria-api.onrender.com"  // API en Render
+            "https://lenceria-stock.netlify.app", // Frontend en Netlify
+            "https://sistema-negocio-lenceria-api.onrender.com", // API en Render
+            "https://sistema-stock-frontend.46397496.workers.dev" // Frontend en Cloudflare Pages
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
