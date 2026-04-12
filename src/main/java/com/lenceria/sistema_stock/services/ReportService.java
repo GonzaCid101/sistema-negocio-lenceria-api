@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 
+import com.lenceria.sistema_stock.entities.PurchaseStatus;
+import com.lenceria.sistema_stock.repositories.PurchasePaymentRepository;
 import org.springframework.stereotype.Service;
 
 import com.lenceria.sistema_stock.dtos.MonthlyBalanceDTO;
@@ -19,12 +21,16 @@ public class ReportService {
     private final StockMovementRepository movementRepository;
     private final PurchaseRepository purchaseRepository;
     private final ExpenseRepository expenseRepository;
+    private final PurchasePaymentRepository purchasePaymentRepository;
 
-    public ReportService(SaleRepository saleRepository, StockMovementRepository movementRepository, PurchaseRepository purchaseRepository, ExpenseRepository expenseRepository){
+    public ReportService(SaleRepository saleRepository, StockMovementRepository movementRepository, 
+                        PurchaseRepository purchaseRepository, ExpenseRepository expenseRepository,
+                        PurchasePaymentRepository purchasePaymentRepository){
         this.saleRepository = saleRepository;
         this.movementRepository = movementRepository;
         this.purchaseRepository = purchaseRepository;
         this.expenseRepository = expenseRepository;
+        this.purchasePaymentRepository = purchasePaymentRepository;
     }
 
     public MonthlyBalanceDTO generarBalanceMensual(int anio, int mes){
@@ -39,7 +45,8 @@ public class ReportService {
         BigDecimal ingresosVentas = saleRepository.sumarIngresosPorFecha(inicio, fin);
         balance.setIngresosVentas(ingresosVentas);
 
-        BigDecimal egresosCompras = purchaseRepository.sumarEgresosPorFecha(inicio, fin);
+        // CRÍTICO: Los egresos del mes ahora suman los pagos reales, no el total de la factura
+        BigDecimal egresosCompras = purchasePaymentRepository.sumarPagosPorFecha(inicio, fin);
         balance.setEgresosCompras(egresosCompras);
 
 
@@ -49,7 +56,7 @@ public class ReportService {
 
         Integer prendasCompradas = movementRepository.calcularStock(inicio, fin, "ENTRADA", "COMPRA");
         balance.setPrendasIngresadas(prendasCompradas);
-        
+
         //Ventas y Compras realizadas
         Long ventasRealizadas = saleRepository.ventasRealizadas(inicio, fin);
         balance.setTotalVentasRealizadas(ventasRealizadas);
@@ -73,6 +80,10 @@ public class ReportService {
 
         BigDecimal utilidadNeta = ingresosVentas.subtract(egresosTotales);
         balance.setUtilidadNeta(utilidadNeta);
+
+        // NUEVO: Calcular deuda pendiente con proveedores (compras PENDIENTES)
+        BigDecimal deudaPendiente = purchaseRepository.sumarDeudaPorEstado(PurchaseStatus.PENDIENTE);
+        balance.setDeudaPendienteProveedores(deudaPendiente);
 
         return balance;
     }

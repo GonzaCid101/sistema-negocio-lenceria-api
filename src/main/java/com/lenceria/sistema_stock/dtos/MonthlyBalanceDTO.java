@@ -15,6 +15,7 @@ public class MonthlyBalanceDTO {
     private BigDecimal ingresosTotales;
     private BigDecimal egresosTotales;
     private BigDecimal utilidadNeta;
+    private BigDecimal deudaPendienteProveedores;
 
     //Constructor default
     public MonthlyBalanceDTO(){
@@ -29,7 +30,8 @@ public class MonthlyBalanceDTO {
         this.ingresosTotales = BigDecimal.ZERO;
         this.egresosTotales = BigDecimal.ZERO;
         this.utilidadNeta = BigDecimal.ZERO;
-        
+        this.deudaPendienteProveedores = BigDecimal.ZERO;
+
     }
 
     // Getters y Setters
@@ -67,6 +69,8 @@ public class MonthlyBalanceDTO {
     public BigDecimal getUtilidadNeta() { return utilidadNeta; }
     public void setUtilidadNeta(BigDecimal utilidadNeta) { this.utilidadNeta = utilidadNeta; }
 
+    public BigDecimal getDeudaPendienteProveedores() { return deudaPendienteProveedores; }
+    public void setDeudaPendienteProveedores(BigDecimal deudaPendienteProveedores) { this.deudaPendienteProveedores = deudaPendienteProveedores; }
 
 
 }

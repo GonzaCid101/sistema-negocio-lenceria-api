@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.lenceria.sistema_stock.entities.PurchaseStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +14,9 @@ import com.lenceria.sistema_stock.entities.Purchase;
 
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
+
+    // Este método ya no se usa para el balance - ahora usamos pagos reales
+    // Se mantiene por compatibilidad si se necesita en otro lugar
     @Query("SELECT COALESCE(SUM(p.totalAmount), 0) FROM Purchase p WHERE p.date BETWEEN :inicio AND :fin")
     BigDecimal sumarEgresosPorFecha(@Param("inicio") LocalDateTime inicio, @Param("fin") LocalDateTime fin);
 
@@ -24,4 +28,11 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
     // Busca compras entre dos fechas
     List<Purchase> findByDateBetween(java.time.LocalDateTime start, java.time.LocalDateTime end);
+
+    // Busca compras por estado
+    List<Purchase> findByStatus(PurchaseStatus status);
+
+    // Suma el totalAmount de todas las compras con estado PENDIENTE
+    @Query("SELECT COALESCE(SUM(p.totalAmount), 0) FROM Purchase p WHERE p.status = :status")
+    BigDecimal sumarDeudaPorEstado(@Param("status") PurchaseStatus status);
 }

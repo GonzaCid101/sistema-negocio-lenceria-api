@@ -18,7 +18,9 @@ C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\co
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\ExpenseDTO.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\LoginDTO.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\MonthlyBalanceDTO.java
+C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\PurchasePaymentDTO.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\PurchaseRequestDTO.java
+C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\PurchaseResponseDTO.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\SaleRequestDTO.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\dtos\StockRequestDTO.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\Article.java
@@ -29,6 +31,8 @@ C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\co
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\MetodoPago.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\Purchase.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\PurchaseDetail.java
+C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\PurchasePayment.java
+C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\PurchaseStatus.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\Sale.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\SaleDetail.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\entities\StockMovement.java
@@ -39,6 +43,7 @@ C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\co
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\repositories\BrandRepository.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\repositories\ExpenseCategoryRepository.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\repositories\ExpenseRepository.java
+C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\repositories\PurchasePaymentRepository.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\repositories\PurchaseRepository.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\repositories\SaleRepository.java
 C:\Users\PORTATIL\Documents\Gonzalo Cid\PROYECTOS\sistema-stock\src\main\java\com\lenceria\sistema_stock\repositories\StockMovementRepository.java
