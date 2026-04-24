@@ -18,6 +18,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Entity
 @Table(name = "variants")
 @SQLDelete(sql = "UPDATE variants SET active = false WHERE id = ?")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @SQLRestriction("active = true")
 public class Variant {
     @Id

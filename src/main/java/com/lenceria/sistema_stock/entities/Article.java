@@ -21,6 +21,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Entity // Convierte a tabla
 @Table(name="articles") // Nombre de la tabla
 @SQLDelete(sql = "UPDATE articles SET active = false WHERE id = ?")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @SQLRestriction("active = true")
 public class Article {
 
