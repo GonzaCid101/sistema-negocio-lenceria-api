@@ -3,7 +3,6 @@ package com.lenceria.sistema_stock.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +42,7 @@ public class ArticleCategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCategory(@PathVariable @NonNull Long id, @Valid @RequestBody ArticleCategoryDTO updatedCategory) {
+    public ResponseEntity<String> updateCategory(@PathVariable Long id, @Valid @RequestBody ArticleCategoryDTO updatedCategory) {
         categoryService.updateCategory(id, updatedCategory);
         return ResponseEntity.ok("Categoria actualizada correctamente.");
     }
