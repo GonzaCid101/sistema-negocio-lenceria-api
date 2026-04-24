@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.lenceria.sistema_stock.dtos.PurchasePaymentDTO;
 import com.lenceria.sistema_stock.dtos.PurchaseResponseDTO;
-import com.lenceria.sistema_stock.entities.Purchase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +27,9 @@ public class PurchaseController {
     @PostMapping
     public ResponseEntity<String> registrarCompra(@Valid @RequestBody PurchaseRequestDTO request){
         purchaseService.registrarCompra(
-            request.getMetodoPago(), 
-            request.getSupplier(), 
-            request.getInvoiceNumber(), 
+            request.getMetodoPago(),
+            request.getSupplier(),
+            request.getInvoiceNumber(),
             request.getItems()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body("Compra registrada.");
