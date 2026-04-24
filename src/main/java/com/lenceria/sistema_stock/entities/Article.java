@@ -15,10 +15,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity // Convierte a tabla
 @Table(name="articles") // Nombre de la tabla
-
+@SQLDelete(sql = "UPDATE articles SET active = false WHERE id = ?")
+@SQLRestriction("active = true")
 public class Article {
 
     @Id //Clave primaria
@@ -43,7 +46,10 @@ public class Article {
     private Boolean active;
 
     //Lista de variantes. 1-*
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true) //MappedBy: relacion definida en la variable article de la clase Variant.
+    // El fetch es LAZY para evitar cargar todas las variantes al traer el articulo
+    // Se filtra por variantes activas gracias a @SQLRestriction en Variant
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = false)
+    @JsonIgnoreProperties("article")
     private List<Variant> variants = new ArrayList<>();
 
     // ---CONSTRUCTORES---

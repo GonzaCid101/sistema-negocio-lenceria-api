@@ -11,10 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "brands")
-
+@SQLDelete(sql = "UPDATE brands SET active = false WHERE id = ?")
+@SQLRestriction("active = true")
 public class Brand {
     @Id //Clave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Id autoincremental
@@ -23,7 +26,8 @@ public class Brand {
     @Column(nullable = false) //Para no guardar un articulo sin nombre
     private String name;
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = true) //MappedBy: relacion definida en la variable article de la clase Variant.
+    // Se filtra por artículos activos gracias a @SQLRestriction en Article
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Article> articles = new ArrayList<>();
 
     private String description;

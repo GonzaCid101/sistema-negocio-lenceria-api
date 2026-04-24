@@ -12,10 +12,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "variants")
-
+@SQLDelete(sql = "UPDATE variants SET active = false WHERE id = ?")
+@SQLRestriction("active = true")
 public class Variant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +39,8 @@ public class Variant {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-	@Column
-	private String barCode;
+    @Column
+    private String barCode;
 
     private Integer stock = 0;
 
@@ -86,5 +89,3 @@ public class Variant {
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
 }
-
-

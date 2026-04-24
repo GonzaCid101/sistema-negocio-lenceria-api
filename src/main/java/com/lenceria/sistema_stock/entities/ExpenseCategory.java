@@ -13,10 +13,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "categories")
-
+@SQLDelete(sql = "UPDATE categories SET active = false WHERE id = ?")
+@SQLRestriction("active = true")
 public class ExpenseCategory {
     @Id //Clave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Id autoincremental
@@ -26,7 +29,8 @@ public class ExpenseCategory {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Se filtra por gastos activos gracias a @SQLRestriction en Expense (si lo tiene)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Expense> expenses = new ArrayList<>();
 
     private Boolean active;
