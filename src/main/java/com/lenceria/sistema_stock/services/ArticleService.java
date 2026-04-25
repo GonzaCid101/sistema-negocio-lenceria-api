@@ -76,11 +76,11 @@ public class ArticleService {
     }
     
     @Transactional
-    public void deleteArticle(Long id) {
+    public Article deleteArticle(Long id) {
         Article articulo = articleRepository.findById(id).orElseThrow(() -> new RuntimeException("Articulo no encontrado."));
 
         articulo.setActive(false);
-
+        return articulo;
     }
 
 	public List<Variant> obtenerVariantesPorCodigo(String code) {
@@ -110,22 +110,23 @@ public class ArticleService {
     }
 
     @Transactional
-    public void eliminarVariante( Long articleId, Long varianteId) {
+    public Variant eliminarVariante(Long articleId, Long varianteId) {
         Variant varianteExistente = variantRepository.findById(varianteId).orElseThrow(() -> new RuntimeException("¡Error! La variante ID " + varianteId + " no existe."));
 
         if (articleId != varianteExistente.getArticle().getId()){
             throw new IllegalArgumentException("Variante o articulo incorrectos. No relacionados.");
         }
-        
+
         if(!varianteExistente.getActive()){
             throw new RuntimeException("La variante ya fue borrada.");
         }
-        
+
         varianteExistente.setActive(false);
+        return varianteExistente;
     }
 
-@Transactional
-    public void actualizarVariante(Long articleId, Long varianteId, Variant varianteActualizada) {
+    @Transactional
+    public Variant actualizarVariante(Long articleId, Long varianteId, Variant varianteActualizada) {
 
         Variant varianteExistente = variantRepository.findById(varianteId).orElseThrow(() -> new RuntimeException("Variante no encontrada"));
 
@@ -137,5 +138,6 @@ public class ArticleService {
         varianteExistente.setPrice(varianteActualizada.getPrice());
         varianteExistente.setBarCode(varianteActualizada.getBarCode());
 
+        return varianteExistente;
     }
 }

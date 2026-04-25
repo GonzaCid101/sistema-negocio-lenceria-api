@@ -2,6 +2,7 @@ package com.lenceria.sistema_stock.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,20 +37,20 @@ public class ArticleCategoryController {
     }
 
     @PostMapping//Guarda en la base de datos. Para ingresar
-    public ResponseEntity<String> createCategory(@Valid @RequestBody ArticleCategoryDTO categoryDTO){ //Transforma el JSON que se ingresa en un objeto ArticleCategory
-        categoryService.createCategory(categoryDTO);
-        return ResponseEntity.ok("Categoria creada correctamente.");
+    public ResponseEntity<ArticleCategory> createCategory(@Valid @RequestBody ArticleCategoryDTO categoryDTO){ //Transforma el JSON que se ingresa en un objeto ArticleCategory
+        ArticleCategory categoriaCreada = categoryService.createCategory(categoryDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaCreada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCategory(@PathVariable Long id, @Valid @RequestBody ArticleCategoryDTO updatedCategory) {
-        categoryService.updateCategory(id, updatedCategory);
-        return ResponseEntity.ok("Categoria actualizada correctamente.");
+    public ResponseEntity<ArticleCategory> updateCategory(@PathVariable Long id, @Valid @RequestBody ArticleCategoryDTO updatedCategory) {
+        ArticleCategory categoriaActualizada = categoryService.updateCategory(id, updatedCategory);
+        return ResponseEntity.ok(categoriaActualizada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
-        categoryService.deleteCategory(id);
-        return ResponseEntity.ok("Categoria eliminada correctamente.");
+    public ResponseEntity<ArticleCategory> deleteCategory(@PathVariable Long id) {
+        ArticleCategory categoriaEliminada = categoryService.deleteCategory(id);
+        return ResponseEntity.ok(categoriaEliminada);
     }
 }

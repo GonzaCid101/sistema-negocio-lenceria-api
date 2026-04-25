@@ -63,7 +63,8 @@ public class StockMovementService {
         if (anio != null && mes != null) {
             return movementRepository.buscarPorAnioYMes(anio, mes);
         }
-        return movementRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        // Usar findTop200 para mejor rendimiento - no cargar toda la BD
+        return movementRepository.findTop200ByOrderByCreatedAtDesc();
     }
 }
 

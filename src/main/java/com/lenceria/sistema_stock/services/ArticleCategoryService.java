@@ -43,9 +43,10 @@ public class ArticleCategoryService {
     }
     
     @Transactional
-    public void deleteCategory(Long id) {
+    public ArticleCategory deleteCategory(Long id) {
         ArticleCategory Category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Categoria no encontrada."));
 
         Category.setActive(false);
+        return Category;
     }
 }

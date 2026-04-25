@@ -46,10 +46,10 @@ public class BrandService {
     }
     
     @Transactional
-    public void deleteBrand(Long id) {
+    public Brand deleteBrand(Long id) {
         Brand brand = brandRepository.findById(id).orElseThrow(() -> new RuntimeException("Marca no encontrada."));
 
         brand.setActive(false);
-
+        return brand;
     }
 }

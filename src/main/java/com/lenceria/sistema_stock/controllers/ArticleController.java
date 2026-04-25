@@ -45,61 +45,61 @@ public class ArticleController {
     }
 
     @PostMapping//Guarda en la base de datos. Para ingresar
-    public ResponseEntity<String> createArticle(@Valid @RequestBody ArticleDTO articleDTO){ //Transforma el JSON que se ingresa en un objeto article
-        articleService.createArticle(articleDTO);
-        return ResponseEntity.ok("Articulo creado correctamente.");
+    public ResponseEntity<Article> createArticle(@Valid @RequestBody ArticleDTO articleDTO){ //Transforma el JSON que se ingresa en un objeto article
+        Article articuloCreado = articleService.createArticle(articleDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(articuloCreado);
     }
 
     @PostMapping ("/{id}/variantes")
-    public ResponseEntity<String> agregarVariante(@PathVariable Long id, @Valid @RequestBody Variant variante){
-        articleService.agregarVariante(id, variante);
-        return ResponseEntity.ok("Variante creada correctamente.");
+    public ResponseEntity<Variant> agregarVariante(@PathVariable Long id, @Valid @RequestBody Variant variante){
+        Variant varianteCreada = articleService.agregarVariante(id, variante);
+        return ResponseEntity.status(HttpStatus.CREATED).body(varianteCreada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateArticle(@PathVariable Long id, @Valid @RequestBody ArticleDTO updatedArticle) {
-        articleService.updateArticle(id, updatedArticle);
-        return ResponseEntity.ok("Articulo actualizado correctamente.");
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @Valid @RequestBody ArticleDTO updatedArticle) {
+        Article articuloActualizado = articleService.updateArticle(id, updatedArticle);
+        return ResponseEntity.ok(articuloActualizado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteArticle(@PathVariable Long id) {
-        articleService.deleteArticle(id);
-        return ResponseEntity.ok("Articulo eliminado correctamente.");
+    public ResponseEntity<Article> deleteArticle(@PathVariable Long id) {
+        Article articuloEliminado = articleService.deleteArticle(id);
+        return ResponseEntity.ok(articuloEliminado);
     }
 
     @DeleteMapping ("/{articuloId}/variantes/{varianteId}")
     public ResponseEntity<?> eliminarVariante(@PathVariable Long articuloId, @PathVariable Long varianteId) {
         try {
-            articleService.eliminarVariante(articuloId, varianteId);
-            return ResponseEntity.ok("Variante eliminada correctamente.");
+            Variant varianteEliminada = articleService.eliminarVariante(articuloId, varianteId);
+            return ResponseEntity.ok(varianteEliminada);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Error: " + e.getMessage());
+                    .body("Error: " + e.getMessage());
         } catch (RuntimeException e) {
             // Errores como "La variante ya fue borrada" o "Variante no encontrada"
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Error: " + e.getMessage());
+                    .body("Error: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error interno del servidor: " + e.getMessage());
+                    .body("Error interno del servidor: " + e.getMessage());
         }
     }
 
     @PutMapping ("/{articuloId}/variantes/{varianteId}")
     public ResponseEntity<?> actualizarVariante(@PathVariable Long articuloId, @PathVariable Long varianteId, @Valid @RequestBody Variant varianteActualizada) {
         try {
-            articleService.actualizarVariante(articuloId, varianteId, varianteActualizada);
-            return ResponseEntity.ok("Variante actualizada correctamente.");
+            Variant varianteActualizadaResult = articleService.actualizarVariante(articuloId, varianteId, varianteActualizada);
+            return ResponseEntity.ok(varianteActualizadaResult);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Error: " + e.getMessage());
+                    .body("Error: " + e.getMessage());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Error: " + e.getMessage());
+                    .body("Error: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error interno del servidor: " + e.getMessage());
+                    .body("Error interno del servidor: " + e.getMessage());
         }
     }
 }

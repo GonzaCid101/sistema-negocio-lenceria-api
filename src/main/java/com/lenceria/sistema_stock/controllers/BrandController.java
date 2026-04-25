@@ -2,6 +2,7 @@ package com.lenceria.sistema_stock.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,20 +37,20 @@ public class BrandController {
     }
 
     @PostMapping//Guarda en la base de datos. Para ingresar
-    public ResponseEntity<String> createBrand(@Valid @RequestBody BrandDTO brandDTO){ //Transforma el JSON que se ingresa en un objeto brand
-        brandService.createBrand(brandDTO);
-        return ResponseEntity.ok("Marca creada correctamente.");
+    public ResponseEntity<Brand> createBrand(@Valid @RequestBody BrandDTO brandDTO){ //Transforma el JSON que se ingresa en un objeto brand
+        Brand marcaCreada = brandService.createBrand(brandDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(marcaCreada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateBrand(@PathVariable Long id, @Valid @RequestBody BrandDTO updatedBrand) {
-        brandService.updateBrand(id, updatedBrand);
-        return ResponseEntity.ok("Marca actualizada correctamente.");
+    public ResponseEntity<Brand> updateBrand(@PathVariable Long id, @Valid @RequestBody BrandDTO updatedBrand) {
+        Brand marcaActualizada = brandService.updateBrand(id, updatedBrand);
+        return ResponseEntity.ok(marcaActualizada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBrand(@PathVariable Long id) {
-        brandService.deleteBrand(id);
-        return ResponseEntity.ok("Marca eliminada correctamente.");
+    public ResponseEntity<Brand> deleteBrand(@PathVariable Long id) {
+        Brand marcaEliminada = brandService.deleteBrand(id);
+        return ResponseEntity.ok(marcaEliminada);
     }
 }

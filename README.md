@@ -17,7 +17,7 @@ Este sistema permite:
 | Tecnología | Versión | Uso |
 |------------|---------|-----|
 | Java | 21 | Lenguaje principal |
-| Spring Boot | 3.4.3 | Framework backend |
+| Spring Boot | 4.0.6 | Framework backend |
 | Spring Security | 6.x | Autenticación y autorización |
 | JWT (jjwt) | 0.11.5 | Tokens de seguridad |
 | Spring Data JPA | 3.x | Acceso a datos |
@@ -326,12 +326,6 @@ Recordatorio: Ejecutar este comando siempre antes de hacer git commit y push.
 **Desarrollador**: Gonzalo Cid
 **Proyecto**: Primer sistema con Spring Boot
 **Año**: 2026
-
----
-
-## 📄 Licencia
-
-Este proyecto es de uso personal/educativo.
 
 ---
 

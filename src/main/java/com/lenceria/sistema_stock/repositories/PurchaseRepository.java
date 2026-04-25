@@ -35,4 +35,7 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     // Suma el totalAmount de todas las compras con estado PENDIENTE
     @Query("SELECT COALESCE(SUM(p.totalAmount), 0) FROM Purchase p WHERE p.status = :status")
     BigDecimal sumarDeudaPorEstado(@Param("status") PurchaseStatus status);
+
+    // Devuelve las 200 compras más recientes para mejor rendimiento
+    List<Purchase> findTop200ByOrderByDateDesc();
 }

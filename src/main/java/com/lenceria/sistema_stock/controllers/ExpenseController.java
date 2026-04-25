@@ -2,6 +2,7 @@ package com.lenceria.sistema_stock.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,20 +37,20 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public ResponseEntity<String> crearExpensa(@RequestBody Expense expensa) {
-        expenseService.crearExpensa(expensa);
-        return ResponseEntity.ok("Expensa creada correctamente.");
+    public ResponseEntity<Expense> crearExpensa(@RequestBody Expense expensa) {
+        Expense expensaCreada = expenseService.crearExpensa(expensa);
+        return ResponseEntity.status(HttpStatus.CREATED).body(expensaCreada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> actualizarExpensa(@PathVariable Long id, @RequestBody Expense expensaActualizada) {
-        expenseService.actualizarExpensa(id, expensaActualizada);
-        return ResponseEntity.ok("Expensa actualizada correctamente.");
+    public ResponseEntity<Expense> actualizarExpensa(@PathVariable Long id, @RequestBody Expense expensaActualizada) {
+        Expense expensaActualizadaResult = expenseService.actualizarExpensa(id, expensaActualizada);
+        return ResponseEntity.ok(expensaActualizadaResult);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarExpensa(@PathVariable Long id) {
-        expenseService.eliminarExpensa(id);
-        return ResponseEntity.ok("Expensa eliminada correctamente.");
+    public ResponseEntity<Expense> eliminarExpensa(@PathVariable Long id) {
+        Expense expensaEliminada = expenseService.eliminarExpensa(id);
+        return ResponseEntity.ok(expensaEliminada);
     }
 }

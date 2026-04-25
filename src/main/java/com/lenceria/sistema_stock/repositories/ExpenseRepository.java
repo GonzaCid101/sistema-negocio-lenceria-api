@@ -22,4 +22,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     @Query("SELECT e FROM Expense e WHERE YEAR(e.date) = :anio AND MONTH(e.date) = :mes ORDER BY e.date DESC")
     List<Expense> buscarPorAnioYMes(@Param("anio") int anio, @Param("mes") int mes);
+
+    // Devuelve las 200 expensas más recientes para mejor rendimiento
+    List<Expense> findTop200ByOrderByDateDesc();
 }

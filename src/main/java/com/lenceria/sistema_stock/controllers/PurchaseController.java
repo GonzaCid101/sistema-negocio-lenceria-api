@@ -25,14 +25,16 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public ResponseEntity<String> registrarCompra(@Valid @RequestBody PurchaseRequestDTO request){
-        purchaseService.registrarCompra(
-            request.getMetodoPago(),
-            request.getSupplier(),
-            request.getInvoiceNumber(),
-            request.getItems()
+    public ResponseEntity<PurchaseResponseDTO> registrarCompra(@Valid @RequestBody PurchaseRequestDTO request){
+        PurchaseResponseDTO compraCreada = new PurchaseResponseDTO(
+            purchaseService.registrarCompra(
+                request.getMetodoPago(),
+                request.getSupplier(),
+                request.getInvoiceNumber(),
+                request.getItems()
+            )
         );
-        return ResponseEntity.status(HttpStatus.CREATED).body("Compra registrada.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(compraCreada);
     }
 
     @GetMapping
@@ -54,13 +56,13 @@ public class PurchaseController {
             return ResponseEntity.ok(compraActualizada);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Error: " + e.getMessage());
+                    .body("Error: " + e.getMessage());
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body("Error: " + e.getMessage());
+                    .body("Error: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error interno: " + e.getMessage());
+                    .body("Error interno: " + e.getMessage());
         }
     }
 }

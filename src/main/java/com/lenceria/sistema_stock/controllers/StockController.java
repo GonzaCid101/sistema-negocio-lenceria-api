@@ -2,6 +2,8 @@ package com.lenceria.sistema_stock.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,19 +28,19 @@ public class StockController {
     }
 
     @PostMapping
-    public String registrarMovimiento(@RequestBody StockRequestDTO request){
+    public ResponseEntity<StockMovement> registrarMovimiento(@RequestBody StockRequestDTO request){
 
-        stockService.registrarMovimiento(request.getVariantId(), request.getMovementType(), request.getQuantity(), request.getReason());
+        StockMovement movimientoCreado = stockService.registrarMovimiento(request.getVariantId(), request.getMovementType(), request.getQuantity(), request.getReason());
 
-        return "Movimiento registrado con exito. Stock actualizado.";
+        return ResponseEntity.status(HttpStatus.CREATED).body(movimientoCreado);
     }
 
     @GetMapping
     public List<StockMovement> obtenerMovimientos(
             @RequestParam(required = false) Integer anio,
             @RequestParam(required = false) Integer mes) {
-        
+
         return stockService.listaMovimientos(anio, mes);
     }
-    
+
 }

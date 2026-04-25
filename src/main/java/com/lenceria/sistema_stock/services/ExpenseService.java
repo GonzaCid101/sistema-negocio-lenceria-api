@@ -30,7 +30,8 @@ public class ExpenseService {
         if (anio != null && mes != null) {
             return expenseRepository.buscarPorAnioYMes(anio, mes);
         }
-        return expenseRepository.findAll();
+        // Usar findTop200 para mejor rendimiento - no cargar toda la BD
+        return expenseRepository.findTop200ByOrderByDateDesc();
     }
 
     //Categorias
@@ -52,10 +53,11 @@ public class ExpenseService {
     }
     
     @Transactional
-    public void eliminarCategoria(Long id) {
+    public ExpenseCategory eliminarCategoria(Long id) {
         ExpenseCategory categoria = expenseCategoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Categoria no encontrada."));
 
         categoria.setActive(false);
+        return categoria;
     }
 
     //Expensas
@@ -85,9 +87,11 @@ public class ExpenseService {
         return originalExpense;
     }
     
-    public void eliminarExpensa(Long id) {
+    @Transactional
+    public Expense eliminarExpensa(Long id) {
         Expense originalExpense = expenseRepository.findById(id).orElseThrow(() -> new RuntimeException("Expensa no encontrada."));
 
         expenseRepository.deleteById(originalExpense.getId());
+        return originalExpense;
     }
 }

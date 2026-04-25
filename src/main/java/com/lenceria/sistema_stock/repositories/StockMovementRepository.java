@@ -25,4 +25,7 @@ public interface StockMovementRepository extends JpaRepository<StockMovement, Lo
     // Busca movimientos de stock entre dos fechas
     List<StockMovement> findByCreatedAtBetween(java.time.LocalDateTime start, java.time.LocalDateTime end);
 
+    // Devuelve los 200 movimientos más recientes para mejor rendimiento
+    List<StockMovement> findTop200ByOrderByCreatedAtDesc();
+
 }

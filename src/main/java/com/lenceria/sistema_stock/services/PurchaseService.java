@@ -147,9 +147,10 @@ public class PurchaseService {
         if (anio != null && mes != null) {
             compras = purchaseRepository.buscarPorAnioYMes(anio, mes);
         } else {
-            compras = purchaseRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+            // Usar findTop200 para mejor rendimiento - no cargar toda la BD
+            compras = purchaseRepository.findTop200ByOrderByDateDesc();
         }
-        
+
         return compras.stream()
                 .map(PurchaseResponseDTO::new)
                 .collect(Collectors.toList());

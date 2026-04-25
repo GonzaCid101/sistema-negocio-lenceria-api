@@ -2,6 +2,7 @@ package com.lenceria.sistema_stock.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,20 +38,20 @@ public class ExpenseCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<String> crearCategoria(@Valid @RequestBody ExpenseCategoryDTO categoriaDTO){
-        expenseService.crearCategoria(categoriaDTO);
-        return ResponseEntity.ok("Categoria creada correctamente.");
+    public ResponseEntity<ExpenseCategory> crearCategoria(@Valid @RequestBody ExpenseCategoryDTO categoriaDTO){
+        ExpenseCategory categoriaCreada = expenseService.crearCategoria(categoriaDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaCreada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> actualizarCategoria(@PathVariable Long id, @Valid @RequestBody ExpenseCategoryDTO categoriaActualizada) {
-        expenseService.actualizarCategoria(id, categoriaActualizada);
-        return ResponseEntity.ok("Categoria actualizada correctamente.");
+    public ResponseEntity<ExpenseCategory> actualizarCategoria(@PathVariable Long id, @Valid @RequestBody ExpenseCategoryDTO categoriaActualizada) {
+        ExpenseCategory categoriaActualizadaResult = expenseService.actualizarCategoria(id, categoriaActualizada);
+        return ResponseEntity.ok(categoriaActualizadaResult);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarCategoria(@PathVariable Long id) {
-        expenseService.eliminarCategoria(id);
-        return ResponseEntity.ok("Categoria eliminada correctamente.");
+    public ResponseEntity<ExpenseCategory> eliminarCategoria(@PathVariable Long id) {
+        ExpenseCategory categoriaEliminada = expenseService.eliminarCategoria(id);
+        return ResponseEntity.ok(categoriaEliminada);
     }
 }
