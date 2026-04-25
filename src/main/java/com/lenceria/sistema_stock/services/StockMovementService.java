@@ -2,6 +2,7 @@ package com.lenceria.sistema_stock.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.lenceria.sistema_stock.entities.StockMovement;
@@ -21,7 +22,7 @@ public class StockMovementService {
         this.movementRepository = movementRepository; //Inyeccion de repositorio listo para usar
         this.variantRepository = variantRepository;
     }
-    
+
     // Metodo para registrar un movimiento
     @Transactional
     public StockMovement registrarMovimiento(Long variantId, String tipoMovimiento, int cantidad, String razon){
@@ -42,7 +43,7 @@ public class StockMovementService {
         if (variante.getStock() == null) {
             variante.setStock(0);
         }
-        
+
         if ("ENTRADA".equalsIgnoreCase(tipoMovimiento)) {
             variante.setStock(variante.getStock() + cantidad);
         } else if ("SALIDA".equalsIgnoreCase(tipoMovimiento)) {
@@ -52,7 +53,7 @@ public class StockMovementService {
             }
             variante.setStock(variante.getStock() - cantidad);
         }
-        
+
         //Guarda en BD
         return movementRepository.save(nuevoMovimiento);
     }
@@ -60,10 +61,11 @@ public class StockMovementService {
 
     public List<StockMovement> listaMovimientos(Integer anio, Integer mes){
         if (anio != null && mes != null) {
+            // Ahora usa JOIN FETCH - trae todo en una sola consulta
             return movementRepository.buscarPorAnioYMes(anio, mes);
         }
-        // Usar findTop200 para mejor rendimiento - no cargar toda la BD
-        return movementRepository.findTop200ByOrderByCreatedAtDesc();
+        // Usar versión optimizada
+        // PageRequest.of(0, 200) genera LIMIT 200 nativo en SQL - no carga todo a memoria
+        return movementRepository.findAllWithAllData(PageRequest.of(0, 200));
     }
 }
-
