@@ -7,15 +7,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.lenceria.sistema_stock.dtos.PurchasePaymentDTO;
-import com.lenceria.sistema_stock.dtos.PurchaseResponseDTO;
-import com.lenceria.sistema_stock.entities.*;
-import com.lenceria.sistema_stock.repositories.PurchasePaymentRepository;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lenceria.sistema_stock.dtos.PurchasePaymentDTO;
 import com.lenceria.sistema_stock.dtos.PurchaseRequestDTO.ItemCompraDTO;
+import com.lenceria.sistema_stock.dtos.PurchaseResponseDTO;
+import com.lenceria.sistema_stock.entities.MetodoPago;
+import com.lenceria.sistema_stock.entities.Purchase;
+import com.lenceria.sistema_stock.entities.PurchaseDetail;
+import com.lenceria.sistema_stock.entities.PurchasePayment;
+import com.lenceria.sistema_stock.entities.PurchaseStatus;
+import com.lenceria.sistema_stock.entities.Variant;
+import com.lenceria.sistema_stock.repositories.PurchasePaymentRepository;
 import com.lenceria.sistema_stock.repositories.PurchaseRepository;
 import com.lenceria.sistema_stock.repositories.VariantRepository;
 

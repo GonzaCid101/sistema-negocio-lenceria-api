@@ -2,7 +2,6 @@ package com.lenceria.sistema_stock.services;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.lenceria.sistema_stock.entities.StockMovement;
