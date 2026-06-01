@@ -4,4 +4,4 @@ WORKDIR /app
 # Copiamos el motor que ya fabricaste en tu compu
 COPY target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-Xmx300m", "-jar", "app.jar"]
